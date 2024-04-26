@@ -1,7 +1,7 @@
-# Import libraries
 from tensorflow.keras.datasets import mnist
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten
+from tensorflow.keras.utils import to_categorical
 from PIL import Image
 import numpy as np
 import os
@@ -16,7 +16,6 @@ x_train = x_train.astype('float32') / 255  # Normalize pixel values
 x_test = x_test.astype('float32') / 255
 
 # One-hot encode labels (optional, but recommended for categorical classification)
-from tensorflow.keras.utils import to_categorical
 y_train = to_categorical(y_train)
 y_test = to_categorical(y_test)
 
@@ -49,19 +48,11 @@ def predict_digit(image):
   # Return the most likely digit (index of max value)
   return np.argmax(prediction)
 
-# image_path = "01014.jpg" # Path to your image
-# new_image = Image.open(image_path) # Load your image here (replace with your image loading logic)
-# new_width = 28
-# new_height = 28
-# resized_image = new_image.resize((new_width, new_height))
-# predicted_digit = predict_digit(resized_image)
-# print("Predicted digit:", predicted_digit)
-
 # Initialize a list to store digit counts
 digit_counts = [0] * 10  # List of 10 elements initialized to 0
 image_folder = "digits"
 
-  # Loop through all files in the image folder
+# Loop through all files in the image folder
 for filename in os.listdir(image_folder):
   # Check if the file is a JPG image
   if filename.endswith(".jpg"):
@@ -69,9 +60,6 @@ for filename in os.listdir(image_folder):
     try:
       # Open the image
       image = Image.open(filepath)
-
-      # Preprocess the image for prediction (same steps as before)
-      # ... (your image preprocessing steps based on predict_digit)
 
       # Predict the digit using your trained model
       new_width = 28
